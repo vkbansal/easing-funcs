@@ -1,6 +1,6 @@
 {
   "name": "easing-funcs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Easing functions for animations",
   "main": "lib/easing-funcs.js",
   "module": "es6/easing-funcs.js",
