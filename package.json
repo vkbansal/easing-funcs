@@ -1,0 +1,31 @@
+{
+  "name": "easing-funcs",
+  "version": "0.1.0",
+  "description": "Easing functions for animations",
+  "main": "lib/easing-funcs.js",
+  "module": "es6/easing-funcs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir lib --presets=es2015 --no-babelrc && babel src --out-dir es6",
+    "prepublish": "rm -rf es6 && rm -rf lib && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vkbansal/easing-funcs.git"
+  },
+  "keywords": [
+    "easing",
+    "animation"
+  ],
+  "author": "Vivek Kumar Bansal <contact@vkbansal.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vkbansal/easing-funcs/issues"
+  },
+  "homepage": "https://github.com/vkbansal/easing-funcs#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0"
+  }
+}
