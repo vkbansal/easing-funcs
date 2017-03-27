@@ -10,6 +10,7 @@ const easingsGroups = [
     ['easeInCubic', 'easeOutCubic', 'easeInOutCubic'],
     ['easeInQuart', 'easeOutQuart', 'easeInOutQuart'],
     ['easeInQuint', 'easeOutQuint', 'easeInOutQuint'],
+    ['easeInExpo', 'easeOutExpo', 'easeInOutExpo']
 ];
 const WIDTH = 200;
 const HEIGHT = 200;

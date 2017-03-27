@@ -36,3 +36,12 @@ export const easeOutQuint = easeOut(5);
 
 export const easeInOutQuint = easeInOut(5);
 
+export const easeInExpo = t => t === 0 ? 0 : 2 ** (10 * (t - 1));
+
+export const easeOutExpo = t => t === 1 ? 1 : 1 - (2 ** (-10 * t));
+
+export const easeInOutExpo = t => t === 0 || t === 1
+                                    ? t
+                                    : t < 0.5
+                                        ? 0.5 * (2 ** (10 * 2 * (t - 0.5)))
+                                        : 0.5 * (2 - Math.abs(2 ** (-10 * 2 * (t - 0.5))));

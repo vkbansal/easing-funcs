@@ -55,3 +55,6 @@ The following functions are available. Each function takes a value between 0 - 1
 - `number: easeInQuint(t: number)`
 - `number: easeOutQuint(t: number)`
 - `number: easeInOutQuint(t: number)`
+- `number: easeInExpo(t: number)`
+- `number: easeOutExpo(t: number)`
+- `number: easeInOutExpo(t: number)`
