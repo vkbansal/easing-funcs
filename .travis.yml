@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- 7
+after_success:
+- npm run coveralls
+script:
+- npm test
+- bash ./.travis/deploy.sh
+env:
+  global:
+  - GITHUB_REPO: vkbansal/easing-funcs
+  - secure: q+3BpY8uMbThDUqhF9wBE+3zecbViaM2ujXIBp+fs/qjyIwsInPZ+KhJ+WFfYjOgeMdDos/8kFmyaWjfPiN7+tt/hf4hd2/F2sXpzrm221joB1EFAeszgsjmwQc+mubepjDuMMC1Qymj5i5FojLGPQv1cNVRSLh0UakMbVWHNk5uUWsOoD5DnLNCsFlnK8cZUFraJPDzyP3t5HD/dqxLdkbw+LMzmMwAnGnLnAe9I3p+O7tz/U/YxqAP0Lsb0AA6YpzshAMbDBaJ2QTHv37sB/xeur4HKwsCg/E8MV8E/YhNrIRC28Drv+A664cG5CQxbFzpe92uGZgPJYk5UAwHEIiAkb+tudC0suBRhUSIxnfUf/SLNJI62q8tZmse3mUwQRtgqK33F2bYk7+jvXxWvg7ax1NZq5t9GG6ZcHTyXFzmzptbiKLtk8UXJExVK0hkKLerjnklXc8ExEVQ0Pj+7YqnAjC1/94++QvnvzHBnmfnLyWRir/1RIPM3+hY/ln7xVneb0VKAYDKQ03q+wlL564o75CTuVV6aA1pHcOVTMzX7YPdZL+Rrdk1JeYBQUZg1ULHCc32HZ51XIx1lPdGl5HMS7DY5RSY378aUI9gaoXQ5NlIfrSIFQze7vvGu7BlMAzA0YHhjM0QfdEsPgNbbeBNreU3JT8AdWCXex42DD4=
