@@ -11,8 +11,8 @@
     "start:server": "http-server ./preview -p 3000",
     "clean:preview": "rimraf ./preview/bundle.js && rimraf ./preview/bundle.js.map",
     "build-dev:preview": "webpack --progress --profile --colors --config webpack.preview.config.js",
-    "build:preview": "NODE_ENV=production webpack --progress --profile --colors --config webpack.preview.config.js",
-    "prepublish": "rm -rf es6 && rm -rf lib && npm run build"
+    "build:preview": "cross-env NODE_ENV=production webpack --progress --profile --colors --config webpack.preview.config.js",
+    "prepublish": "rimraf es6 && rimraf lib && npm run build"
   },
   "repository": {
     "type": "git",
