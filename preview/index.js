@@ -4,13 +4,15 @@ import ReactDOM from 'react-dom';
 import * as easings from '../src/easing-funcs';
 
 const easingsGroups = [
-    ['linear'],
-    ['easeInSine', 'easeOutSine', 'easeInOutSine'],
-    ['easeInQuad', 'easeOutQuad', 'easeInOutQuad'],
-    ['easeInCubic', 'easeOutCubic', 'easeInOutCubic'],
-    ['easeInQuart', 'easeOutQuart', 'easeInOutQuart'],
-    ['easeInQuint', 'easeOutQuint', 'easeInOutQuint'],
-    ['easeInExpo', 'easeOutExpo', 'easeInOutExpo']
+    [{ type: 'linear' }],
+    [{ type: 'easeInSine' }, { type: 'easeOutSine' }, { type: 'easeInOutSine' }],
+    [{ type: 'easeInQuad' }, { type: 'easeOutQuad' }, { type: 'easeInOutQuad' }],
+    [{ type: 'easeInCubic' }, { type: 'easeOutCubic' }, { type: 'easeInOutCubic' }],
+    [{ type: 'easeInQuart' }, { type: 'easeOutQuart' }, { type: 'easeInOutQuart' }],
+    [{ type: 'easeInQuint' }, { type: 'easeOutQuint' }, { type: 'easeInOutQuint' }],
+    [{ type: 'easeInExpo' }, { type: 'easeOutExpo' }, { type: 'easeInOutExpo' }],
+    [{ type: 'easeInCirc' }, { type: 'easeOutCirc' }, { type: 'easeInOutCirc' }],
+    [{ type: 'easeInElastic', magnitude: true }, { type: 'easeOutElastic', magnitude: true }, { type: 'easeInOutCirc' }]
 ];
 const WIDTH = 200;
 const HEIGHT = 200;
@@ -29,8 +31,8 @@ const STEPS = (function () {
 })();
 
 class EasingCurve extends Component {
-    shouldComponentUpdate() {
-        return false;
+    shouldComponentUpdate(nextProps) {
+        return this.props.magnitude !== nextProps.magnitude;
     }
 
     render() {
@@ -39,7 +41,7 @@ class EasingCurve extends Component {
             {STEPS.map((step, i) => {
                 const style = {
                     left: `${step}px`,
-                    bottom: `${this.props.easingFunc(step)}px`
+                    bottom: `${this.props.easingFunc(step, this.props.magnitude)}px`
                 };
                 return <div className='dot' key={i} style={style}/>;
             })}
@@ -52,8 +54,13 @@ class EasingPreview extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            magnitude: 0.5
+        };
+
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.animate = this.animate.bind(this);
         this.playDotRef = this.playDotRef.bind(this);
         this.timeRef = this.timeRef.bind(this);
@@ -87,6 +94,10 @@ class EasingPreview extends Component {
         this.startTime = null;
     }
 
+    handleChange(e) {
+        this.setState({ magnitude: parseFloat(e.target.value, 10) });
+    }
+
     playDotRef(c) {
         this.playDot = c;
     }
@@ -100,18 +111,27 @@ class EasingPreview extends Component {
 
         if (!easing) return null;
 
-        this.easingFunc = x => easing(x / WIDTH) * HEIGHT;
+        this.easingFunc = x => easing(x / WIDTH, this.state.magnitude) * HEIGHT;
 
         return (
             <div className='easing-preview'>
                 <div className="preview" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-                    <EasingCurve easingFunc={this.easingFunc} />
+                    <EasingCurve easingFunc={this.easingFunc} magnitude={this.state.magnitude} />
                     <div ref={this.timeRef} className='time' />
                     <div ref={this.playDotRef} className='play-dot' />
                 </div>
                 <div className="title">
-                    {this.props.type}
+                    <h4>{this.props.type}</h4>
                 </div>
+                {this.props.hasMagnitude && (
+                    <div>
+                        <p>Magnitude</p>
+                        0&nbsp;
+                        <input type='range' min={0} max={1} step={0.01} value={this.state.magnitude}
+                            onChange={this.handleChange} />
+                        &nbsp;1
+                    </div>
+                )}
             </div>
         );
     }
@@ -124,8 +144,8 @@ class EasingFuncs extends Component {
                 {easingsGroups.map((group, i) => (
                     <div key={i} className='pure-g easing-row'>
                     {group.map(easing => (
-                        <div key={easing} className={`pure-u-1-${group.length}`}>
-                            <EasingPreview type={easing} />
+                        <div key={easing.type} className={`pure-u-1-${group.length}`}>
+                            <EasingPreview type={easing.type} hasMagnitude={easing.magnitude} />
                         </div>
                     ))}
                     </div>
